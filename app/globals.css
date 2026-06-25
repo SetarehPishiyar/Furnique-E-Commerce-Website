@@ -2,6 +2,9 @@
 
 @theme {
   --font-cunia: var(--font-cunia);
+  --color-primary: #3a2d28;
+  --color-secondary: #a48374;
+  --color-background: #f1ede6;
 }
 
 @layer utilities {
@@ -25,7 +28,7 @@
     @apply font-cunia;
   }
   .btn-primary {
-    @apply bg-amber-600 px-6 py-2.5 rounded-lg text-white font-medium hover:bg-amber-700 focus:bg-amber-700 transition-colors;
+    @apply bg-secondary px-6 py-2.5 rounded-lg text-white font-medium hover:bg-primary focus:bg-primary transition-colors;
   }
   .section-title {
     @apply text-2xl lg:text-4xl font-bold;

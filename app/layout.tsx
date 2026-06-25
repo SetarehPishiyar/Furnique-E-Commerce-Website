@@ -28,7 +28,7 @@ export default function RootLayout({
       lang="en"
       className={`${Lexend.className} ${Cunia.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-slate-50">
+      <body className="min-h-full flex flex-col bg-background">
         <Header />
         <main className="min-h-svh flex-1 flex flex-col items-center justify-center">
           {children}

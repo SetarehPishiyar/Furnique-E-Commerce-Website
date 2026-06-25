@@ -14,7 +14,10 @@ const Header = () => {
   return (
     <header className="sticky top-0 border-b border-gray-200 w-full py-3 bg-white z-50 font-cunia">
       <div className="container flex items-center justify-between">
-        <Link href={"/"} className="text-3xl font-semibold text-amber-600">
+        <Link
+          href="/"
+          className="text-3xl font-bold bg-gradient-to-r from-primary via-secondary to-secondary/80 bg-clip-text text-transparent"
+        >
           Furnique
         </Link>
 
@@ -24,7 +27,7 @@ const Header = () => {
             {navItems.map((item) => (
               <li
                 key={item.id}
-                className={`hover:text-amber-600 focus:text-amber-600 transition-colors ${pathName === item.href ? "text-amber-600" : "text-black"}`}
+                className={`hover:text-secondary focus:text-secondary transition-colors ${pathName === item.href ? "text-secondary" : "text-primary"}`}
               >
                 <Link href={item.href}>{item.label}</Link>
               </li>
@@ -38,9 +41,9 @@ const Header = () => {
             >
               <RiShoppingCart2Line
                 size={26}
-                className="text-black hover:text-amber-600 focus:text-amber-600 transition-all"
+                className="text-primary hover:text-secondary focus:text-secondary transition-all"
               />
-              <span className="absolute top-0 right-0 bg-amber-600 flex items-center size-5 rounded-full text-white justify-center text-xs">
+              <span className="absolute top-0 right-0 bg-secondary flex items-center size-5 rounded-full text-white justify-center text-xs">
                 2
               </span>
             </Link>
@@ -55,12 +58,12 @@ const Header = () => {
               href={"/shopping-cart"}
               className="size-10 inline-flex items-center justify-center rounded-sm relative"
             >
-              <RiShoppingCart2Line className="hover:text-amber-600 focus:text-amber-600 transition-colors text-black" />
-              <span className="size-5 bg-amber-600 text-white flex items-center justify-center rounded-full text-sm absolute top-0 right-0">
+              <RiShoppingCart2Line className="hover:text-secondary focus:text-secondary transition-colors text-primary" />
+              <span className="size-5 bg-secondary text-white flex items-center justify-center rounded-full text-sm absolute top-0 right-0">
                 2
               </span>
             </Link>
-            <button onClick={handleClick} className="text-black">
+            <button onClick={handleClick} className="text-primary">
               {openMenu ? <RiCloseLine size={28} /> : <RiMenuLine size={28} />}
             </button>
           </div>
@@ -74,7 +77,7 @@ const Header = () => {
                   <Link
                     href={item.href}
                     onClick={handleClick}
-                    className={` block p-1.5 hover:text-amber-600 focus:text-amber-600 transition-colors ${pathName === item.href ? "text-amber-600" : "text-black"}`}
+                    className={` block p-1.5 hover:text-secondary focus:text-secondary transition-colors ${pathName === item.href ? "text-secondary" : "text-primary"}`}
                   >
                     {item.label}
                   </Link>
