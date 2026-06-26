@@ -4,7 +4,10 @@ import ProductListSection from "@/components/ProductListSection";
 const Shop = () => {
   return (
     <div>
-      <PageTitle />
+      <PageTitle
+        title="Shop"
+        description="Browse our collection of premium furniture and home decor."
+      />
       <ProductListSection />
     </div>
   );

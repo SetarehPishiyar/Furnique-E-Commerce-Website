@@ -12,9 +12,17 @@ const ProductCard = ({ product }: { product: ProductCardProps }) => {
   return (
     <div className="bg-white p-8 rounded-md flex flex-col relative group gap-2.5">
       <div className="py-10 relative flex items-center justify-center bg-secondary/20 h-full rounded-xl">
-        <Image src={product.img} alt={product.name} width={200} height={200} />
+        <Link href={`/shop/${product.id}`}>
+          <Image
+            src={product.img}
+            alt={product.name}
+            width={200}
+            height={200}
+            className="transition-transform duration-300 hover:scale-105"
+          />
+        </Link>
         <Link
-          href={"/shop/"}
+          href={`/shop/${product.id}`}
           className="absolute top-2 right-2 bg-white gap-2 border border-secondary/50 p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200"
           title="View product details"
         >

@@ -1,17 +1,13 @@
-"use client";
-import { usePathname } from "next/navigation";
+type PageTitleProps = {
+  title: string;
+  description?: string;
+};
 
-const PageTitle = () => {
-  const pathName = usePathname();
+const PageTitle = ({ title, description }: PageTitleProps) => {
   return (
-    <div className="bg-[#ebe3d8] text-center flex flex-col gap-1 items-center justify-center min-h-56">
-      <h2 className="text-3xl text-primary">
-        {pathName === "/shop" && "Shop"}
-        {pathName === "/shoping-cart" && "Shopping Cart"}
-      </h2>
-      <p className="text-gray-600 max-w-md">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, nobis!
-      </p>
+    <div className="bg-[#ebe3d8] flex min-h-56 flex-col items-center justify-center">
+      <h2 className="text-3xl text-primary">{title}</h2>
+      <p className="max-w-md text-gray-600 text-center mt-2">{description}</p>
     </div>
   );
 };
