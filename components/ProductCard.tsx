@@ -18,7 +18,7 @@ const ProductCard = ({ product }: { product: ProductCardProps }) => {
             alt={product.name}
             width={200}
             height={200}
-            className="transition-transform duration-300 hover:scale-105"
+            className="transition-transform duration-300 hover:scale-105 w-auto h-auto"
           />
         </Link>
         <Link
