@@ -6,19 +6,19 @@ const ProductListSection = () => {
   return (
     <section>
       <div className="container space-y-10">
-        <div className="bg-white border border-gray-200 grid gap-2 items-center justify-between mt-7 p-4 rounded-lg">
+        <div className="bg-white border border-gray-200 lg:flex grid gap-2 items-center justify-between mt-7 p-4 rounded-lg">
           <div className="border border-gray-200 flex focus-within:border-secondary rounded-md">
             <input
               type="text"
               placeholder="Search products"
-              className="w-full h-full py-2 outline-none px-3.5 text-gray-700"
+              className="w-full h-full lg:min-w-2xs py-2 outline-none px-3.5 text-gray-700"
             />
             <button className="text-gray-700 h-auto w-10 flex items-center justify-center hover:text-secondary transition-colors">
               <RiSearchLine />
             </button>
           </div>
 
-          <div className="flex border border-gray-300 rounded-md focus-within:border-secondary">
+          <div className="flex border lg:min-w-2xs border-gray-300 rounded-md focus-within:border-secondary">
             <select
               name=""
               id=""
