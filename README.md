@@ -110,13 +110,7 @@ npm start
 
 ---
 
-## 🌐 Live Demo
-
-https://furnique-shop.netlify.app
-
----
-
-## 👨‍💻 Author
+## Author
 
 Developed by **Setareh Pishiyar** as a portfolio project to practice modern frontend development using Next.js, TypeScript, Zustand, and NextAuth.
 If you like this project, feel free to ⭐ the repository!
