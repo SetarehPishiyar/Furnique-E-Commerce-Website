@@ -1,4 +1,6 @@
+"use client";
 import { RiGitlabFill, RiGoogleFill } from "@remixicon/react";
+import { signIn } from "next-auth/react";
 
 const Login = () => {
   return (
@@ -85,13 +87,21 @@ const Login = () => {
           </div>
 
           <div className="grid gap-4 grid-cols-2">
-            <button className="w-full inline-flex justify-center items-center gap-2 px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-700 hover:bg-background transition-all">
+            <button
+              className="w-full inline-flex justify-center items-center gap-2 px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-700 hover:bg-background transition-all"
+              onClick={() => {
+                signIn("google", { callbackUrl: "/" });
+              }}
+            >
               <span className="flex items-center gap-2">
                 <RiGoogleFill size={18} />
                 Google
               </span>
             </button>
-            <button className="w-full inline-flex justify-center items-center gap-2 px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-700 hover:bg-background transition-all">
+            <button
+              className="w-full inline-flex justify-center items-center gap-2 px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-700 hover:bg-background transition-all"
+              onClick={() => signIn("github", { callbackUrl: "/" })}
+            >
               <span className="flex items-center gap-2">
                 <RiGitlabFill size={18} />
                 Github

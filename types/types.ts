@@ -13,26 +13,31 @@ interface CartItem {
   img: string;
   quantity: number;
 }
+
 export interface CartStore {
-  cart: CartItem[];
+  carts: Record<string, CartItem[]>;
 
-  addToCart: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
+  addToCart: (
+    userId: string,
+    item: Omit<CartItem, "quantity">,
+    quantity?: number,
+  ) => void;
 
-  removeFromCart: (id: number) => void;
+  removeFromCart: (userId: string, id: number) => void;
 
-  increaseQuantity: (id: number) => void;
+  increaseQuantity: (userId: string, id: number) => void;
 
-  decreaseQuantity: (id: number) => void;
+  decreaseQuantity: (userId: string, id: number) => void;
 
-  updateQuantity: (id: number, quantity: number) => void;
+  updateQuantity: (userId: string, id: number, quantity: number) => void;
 
-  clearCart: () => void;
+  clearCart: (userId: string) => void;
 
-  isInCart: (id: number) => boolean;
+  isInCart: (userId: string, id: number) => boolean;
 
-  getItemQuantity: (id: number) => number;
+  getItemQuantity: (userId: string, id: number) => number;
 
-  getTotalItems: () => number;
+  getTotalItems: (userId: string) => number;
 
-  getTotalPrice: () => number;
+  getTotalPrice: (userId: string) => number;
 }

@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import NextTopLoader from "nextjs-toploader";
+import Providers from "./providers";
 
 const Lexend = localFont({
   src: "./fonts/Lexend-Regular.ttf",
@@ -30,12 +31,14 @@ export default function RootLayout({
       className={`${Lexend.className} ${Cunia.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background">
-        <NextTopLoader color="#a48374" showSpinner={true} />
-        <Header />
-        <main className="min-h-svh flex-1 flex flex-col items-center justify-center">
-          {children}
-        </main>
-        <Footer />
+        <Providers>
+          <NextTopLoader color="#a48374" showSpinner={true} />
+          <Header />
+          <main className="min-h-svh flex-1 flex flex-col items-center justify-center">
+            {children}
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

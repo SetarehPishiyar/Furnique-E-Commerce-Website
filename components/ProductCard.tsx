@@ -3,17 +3,22 @@ import useHydrated from "@/hooks/useHydrated";
 import useCartStore from "@/store/cartStore";
 import { ProductCardProps } from "@/types/types";
 import { RiEyeLine, RiShoppingCart2Line, RiStarFill } from "@remixicon/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
 const ProductCard = ({ product }: { product: ProductCardProps }) => {
+  const { data: session } = useSession();
+  const userId = session?.user?.email;
   const hydrated = useHydrated();
   const addToCart = useCartStore((state) => state.addToCart);
-  const inCart = useCartStore(
-    (state) => hydrated && state.cart.some((item) => item.id === product.id),
+  const inCart = useCartStore((state) =>
+    hydrated && userId
+      ? state.carts[userId]?.some((item) => item.id === product.id)
+      : false,
   );
   const handleAddToCart = () => {
-    addToCart({
+    addToCart(userId!, {
       id: product.id,
       name: product.name,
       price: product.price,

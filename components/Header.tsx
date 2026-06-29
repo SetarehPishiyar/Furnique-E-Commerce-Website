@@ -6,14 +6,24 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import useHydrated from "@/hooks/useHydrated";
 import { useState } from "react";
+import { useSession, signOut, signIn } from "next-auth/react";
 
 const Header = () => {
+  const { data: session, status } = useSession();
+  const userId = session?.user?.email;
+  const isLoading = status === "loading";
+  const isLoggedIn = status === "authenticated";
   const [openMenu, setOpenMenu] = useState(false);
   const pathName = usePathname();
   const hydrated = useHydrated();
-  const totalItems = useCartStore((state) =>
-    state.cart.reduce((total, item) => total + item.quantity, 0),
-  );
+  const totalItems = useCartStore((state) => {
+    if (!userId) return 0;
+
+    return (
+      state.carts[userId]?.reduce((total, item) => total + item.quantity, 0) ||
+      0
+    );
+  });
 
   const handleClick = () => {
     setOpenMenu((prev) => !prev);
@@ -54,9 +64,21 @@ const Header = () => {
                 {hydrated ? totalItems : 0}
               </span>
             </Link>
-            <Link href={"/login"} className="btn-primary">
-              Log In
-            </Link>
+            {isLoading ? null : isLoggedIn ? (
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-primary">
+                  {session?.user?.name ?? "User"}
+                </span>
+
+                <button onClick={() => signOut()} className="btn-primary">
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <Link href="/login" className="btn-primary">
+                Log In
+              </Link>
+            )}
           </div>
         </nav>
 
@@ -93,13 +115,25 @@ const Header = () => {
                 </li>
               ))}
             </ul>
-            <Link
-              href={"/login"}
-              className="btn-primary w-full"
-              onClick={handleClick}
-            >
-              Log In
-            </Link>
+            {isLoading ? null : isLoggedIn ? (
+              <button
+                onClick={() => {
+                  signOut();
+                  handleClick();
+                }}
+                className="btn-primary w-full"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="btn-primary w-full"
+                onClick={handleClick}
+              >
+                Log In
+              </Link>
+            )}
           </div>
         </nav>
       </div>

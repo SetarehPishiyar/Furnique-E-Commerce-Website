@@ -5,84 +5,132 @@ import { persist } from "zustand/middleware";
 const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
-      cart: [],
+      carts: {},
 
-      addToCart: (item, quantity = 1) => {
+      getUserCart: (state: any, userId: string) => {
+        return state.carts[userId] || [];
+      },
+
+      addToCart: (userId, item, quantity = 1) => {
         set((state) => {
-          const existing = state.cart.find((i) => i.id === item.id);
+          const cart = state.carts[userId] || [];
+
+          const existing = cart.find((i) => i.id === item.id);
+
+          let updated;
 
           if (existing) {
-            return {
-              cart: state.cart.map((i) =>
-                i.id === item.id
-                  ? { ...i, quantity: i.quantity + quantity }
-                  : i,
-              ),
-            };
+            updated = cart.map((i) =>
+              i.id === item.id ? { ...i, quantity: i.quantity + quantity } : i,
+            );
+          } else {
+            updated = [...cart, { ...item, quantity }];
           }
 
           return {
-            cart: [...state.cart, { ...item, quantity }],
+            carts: {
+              ...state.carts,
+              [userId]: updated,
+            },
           };
         });
       },
 
-      removeFromCart: (id) => {
-        set((state) => ({
-          cart: state.cart.filter((item) => item.id !== Number(id)),
-        }));
+      removeFromCart: (userId, id) => {
+        set((state) => {
+          const cart = state.carts[userId] || [];
+
+          return {
+            carts: {
+              ...state.carts,
+              [userId]: cart.filter((item) => item.id !== Number(id)),
+            },
+          };
+        });
       },
 
-      increaseQuantity: (id) => {
-        set((state) => ({
-          cart: state.cart.map((item) =>
-            item.id === Number(id)
-              ? { ...item, quantity: item.quantity + 1 }
-              : item,
-          ),
-        }));
+      increaseQuantity: (userId, id) => {
+        set((state) => {
+          const cart = state.carts[userId] || [];
+
+          return {
+            carts: {
+              ...state.carts,
+              [userId]: cart.map((item) =>
+                item.id === Number(id)
+                  ? { ...item, quantity: item.quantity + 1 }
+                  : item,
+              ),
+            },
+          };
+        });
       },
 
-      decreaseQuantity: (id) => {
-        set((state) => ({
-          cart: state.cart.map((item) =>
-            item.id === Number(id)
-              ? {
-                  ...item,
-                  quantity: Math.max(1, item.quantity - 1),
-                }
-              : item,
-          ),
-        }));
+      decreaseQuantity: (userId, id) => {
+        set((state) => {
+          const cart = state.carts[userId] || [];
+
+          return {
+            carts: {
+              ...state.carts,
+              [userId]: cart.map((item) =>
+                item.id === Number(id)
+                  ? {
+                      ...item,
+                      quantity: Math.max(1, item.quantity - 1),
+                    }
+                  : item,
+              ),
+            },
+          };
+        });
       },
 
-      updateQuantity: (id, quantity) => {
-        set((state) => ({
-          cart:
-            quantity <= 0
-              ? state.cart.filter((item) => item.id !== Number(id))
-              : state.cart.map((item) =>
-                  item.id === Number(id) ? { ...item, quantity } : item,
-                ),
-        }));
+      updateQuantity: (userId, id, quantity) => {
+        set((state) => {
+          const cart = state.carts[userId] || [];
+
+          return {
+            carts: {
+              ...state.carts,
+              [userId]:
+                quantity <= 0
+                  ? cart.filter((item) => item.id !== Number(id))
+                  : cart.map((item) =>
+                      item.id === Number(id) ? { ...item, quantity } : item,
+                    ),
+            },
+          };
+        });
       },
 
-      clearCart: () => set({ cart: [] }),
+      clearCart: (userId) => {
+        set((state) => {
+          const newCarts = { ...state.carts };
+          delete newCarts[userId];
 
-      isInCart: (id) => {
-        return get().cart.some((item) => item.id === Number(id));
+          return { carts: newCarts };
+        });
       },
 
-      getItemQuantity: (id) => {
-        return get().cart.find((item) => item.id === Number(id))?.quantity ?? 0;
+      isInCart: (userId, id) => {
+        const cart = get().carts[userId] || [];
+        return cart.some((item) => item.id === Number(id));
       },
 
-      getTotalItems: () => {
-        return get().cart.reduce((total, item) => total + item.quantity, 0);
+      getItemQuantity: (userId, id) => {
+        const cart = get().carts[userId] || [];
+        return cart.find((item) => item.id === Number(id))?.quantity ?? 0;
       },
 
-      getTotalPrice: () => {
-        return get().cart.reduce(
+      getTotalItems: (userId) => {
+        const cart = get().carts[userId] || [];
+        return cart.reduce((total, item) => total + item.quantity, 0);
+      },
+
+      getTotalPrice: (userId) => {
+        const cart = get().carts[userId] || [];
+        return cart.reduce(
           (total, item) => total + item.price * item.quantity,
           0,
         );

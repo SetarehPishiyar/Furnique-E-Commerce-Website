@@ -7,18 +7,33 @@ import {
   RiDeleteBin6Line,
   RiSubtractLine,
 } from "@remixicon/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
 const CartItems = () => {
+  const { data: session } = useSession();
+  const userId = session?.user?.email;
   const hydrated = useHydrated();
-  const cart = useCartStore((state) => state.cart);
-  const totalItems = useCartStore((state) =>
-    state.cart.reduce((total, item) => total + item.quantity, 0),
-  );
-  const totalPrice = useCartStore((state) =>
-    state.cart.reduce((total, item) => total + item.price * item.quantity, 0),
-  );
+  const cart = useCartStore((state) => state.carts[userId!] || []);
+  const totalItems = useCartStore((state) => {
+    if (!userId) return 0;
+
+    return (
+      state.carts[userId]?.reduce((total, item) => total + item.quantity, 0) ||
+      0
+    );
+  });
+  const totalPrice = useCartStore((state) => {
+    if (!userId) return 0;
+
+    return (
+      state.carts[userId]?.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0,
+      ) || 0
+    );
+  });
   const finalPrice = totalPrice + totalPrice * 0.05;
   const clearCart = useCartStore((state) => state.clearCart);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
@@ -68,14 +83,18 @@ const CartItems = () => {
                             <div className="flex items-center gap-2 border border-gray-300 w-fit rounded-lg overflow-hidden">
                               <button
                                 className="p-2 hover:bg-gray-100 transition"
-                                onClick={() => decreaseQuantity(item.id)}
+                                onClick={() =>
+                                  decreaseQuantity(userId!, item.id)
+                                }
                               >
                                 <RiSubtractLine size={18} />
                               </button>
                               <p>{item.quantity}</p>
                               <button
                                 className="p-2 hover:bg-gray-100 transition"
-                                onClick={() => increaseQuantity(item.id)}
+                                onClick={() =>
+                                  increaseQuantity(userId!, item.id)
+                                }
                               >
                                 <RiAddLine size={18} />
                               </button>
@@ -84,7 +103,7 @@ const CartItems = () => {
 
                           <button
                             className="text-rose-500 hover:text-rose-700 transition-colors"
-                            onClick={() => removeFromCart(item.id)}
+                            onClick={() => removeFromCart(userId!, item.id)}
                             title="Delete Item"
                           >
                             <RiDeleteBin6Line size={20} />
@@ -141,14 +160,18 @@ const CartItems = () => {
                             <div className="flex items-center gap-2 border border-gray-300 w-fit rounded-lg overflow-hidden">
                               <button
                                 className="p-2 hover:bg-gray-100 transition"
-                                onClick={() => decreaseQuantity(item.id)}
+                                onClick={() =>
+                                  decreaseQuantity(userId!, item.id)
+                                }
                               >
                                 <RiSubtractLine size={18} />
                               </button>
                               <p>{item.quantity}</p>
                               <button
                                 className="p-2 hover:bg-gray-100 transition"
-                                onClick={() => increaseQuantity(item.id)}
+                                onClick={() =>
+                                  increaseQuantity(userId!, item.id)
+                                }
                               >
                                 <RiAddLine size={18} />
                               </button>
@@ -162,7 +185,7 @@ const CartItems = () => {
                           <td className="p-4">
                             <button
                               className="text-rose-500 hover:text-rose-700 transition-colors"
-                              onClick={() => removeFromCart(item.id)}
+                              onClick={() => removeFromCart(userId!, item.id)}
                               title="Delete Item"
                             >
                               <RiDeleteBin6Line size={20} />
@@ -178,7 +201,7 @@ const CartItems = () => {
               {/* Clear Cart */}
               <button
                 className="mt-4 text-rose-500 hover:text-rose-700 transition-colors flex items-center gap-2"
-                onClick={clearCart}
+                onClick={() => clearCart(userId!)}
               >
                 <RiDeleteBin6Line size={20} className="" />
                 Clear Cart
