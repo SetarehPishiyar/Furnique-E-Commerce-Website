@@ -1,13 +1,20 @@
 "use client";
 import { navItems } from "@/data/data";
+import useCartStore from "@/store/cartStore";
 import { RiCloseLine, RiMenuLine, RiShoppingCart2Line } from "@remixicon/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import useHydrated from "@/hooks/useHydrated";
 import { useState } from "react";
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const pathName = usePathname();
+  const hydrated = useHydrated();
+  const totalItems = useCartStore((state) =>
+    state.cart.reduce((total, item) => total + item.quantity, 0),
+  );
+
   const handleClick = () => {
     setOpenMenu((prev) => !prev);
   };
@@ -44,7 +51,7 @@ const Header = () => {
                 className="text-primary hover:text-secondary focus:text-secondary transition-all"
               />
               <span className="absolute top-0 right-0 bg-secondary flex items-center size-5 rounded-full text-white justify-center text-xs">
-                2
+                {hydrated ? totalItems : 0}
               </span>
             </Link>
             <Link href={"/login"} className="btn-primary">
@@ -62,7 +69,7 @@ const Header = () => {
             >
               <RiShoppingCart2Line className="hover:text-secondary focus:text-secondary transition-colors text-primary" />
               <span className="size-5 bg-secondary text-white flex items-center justify-center rounded-full text-sm absolute top-0 right-0">
-                2
+                {hydrated ? totalItems : 0}
               </span>
             </Link>
             <button onClick={handleClick} className="text-primary">

@@ -1,14 +1,25 @@
+"use client";
+import useHydrated from "@/hooks/useHydrated";
+import useCartStore from "@/store/cartStore";
 import { ProductCardProps } from "@/types/types";
-import {
-  RiEyeLine,
-  RiShoppingCart2Line,
-  RiStackFill,
-  RiStarFill,
-} from "@remixicon/react";
+import { RiEyeLine, RiShoppingCart2Line, RiStarFill } from "@remixicon/react";
 import Image from "next/image";
 import Link from "next/link";
 
 const ProductCard = ({ product }: { product: ProductCardProps }) => {
+  const hydrated = useHydrated();
+  const addToCart = useCartStore((state) => state.addToCart);
+  const inCart = useCartStore(
+    (state) => hydrated && state.cart.some((item) => item.id === product.id),
+  );
+  const handleAddToCart = () => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      img: product.img,
+    });
+  };
   return (
     <div className="bg-white p-8 rounded-md flex flex-col relative group gap-2.5">
       <div className="py-10 relative flex items-center justify-center bg-secondary/20 h-full rounded-xl">
@@ -31,11 +42,15 @@ const ProductCard = ({ product }: { product: ProductCardProps }) => {
       </div>
 
       <div>
-        <button className="btn-primary flex items-center justify-center w-full">
+        <button
+          className="btn-primary flex items-center justify-center w-full"
+          onClick={handleAddToCart}
+          disabled={inCart}
+        >
           <span>
             <RiShoppingCart2Line size={22} />
           </span>
-          Add to Cart
+          {inCart ? "In Cart" : "Add To Cart"}
         </button>
 
         <div className="space-y-1 mt-5">
