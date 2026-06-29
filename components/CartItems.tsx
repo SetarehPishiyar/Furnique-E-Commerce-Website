@@ -15,7 +15,8 @@ const CartItems = () => {
   const { data: session } = useSession();
   const userId = session?.user?.email;
   const hydrated = useHydrated();
-  const cart = useCartStore((state) => state.carts[userId!] || []);
+  const carts = useCartStore((state) => state.carts);
+  const cart = userId ? (carts[userId] ?? []) : [];
   const totalItems = useCartStore((state) => {
     if (!userId) return 0;
 

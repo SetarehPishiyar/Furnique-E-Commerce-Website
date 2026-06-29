@@ -7,8 +7,8 @@ const useCartStore = create<CartStore>()(
     (set, get) => ({
       carts: {},
 
-      getUserCart: (state: any, userId: string) => {
-        return state.carts[userId] || [];
+      getUserCart: (userId: string) => {
+        return get().carts[userId] || [];
       },
 
       addToCart: (userId, item, quantity = 1) => {
