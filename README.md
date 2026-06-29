@@ -1,36 +1,125 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+#  Furnique - E-Commerce Furniture Store
 
-## Getting Started
+A modern and fully responsive e-commerce web application built with **Next.js 14 (App Router)**, **TypeScript**, and **Zustand**. The project simulates a real-world furniture shopping experience with dynamic routing, cart management, and authentication.
 
-First, run the development server:
+🌐 **Live Demo:** https://furnique-shop.netlify.app
+
+---
+
+## Features
+
+-  Browse furniture products with a clean and modern interface
+-  Dynamic product detail pages using Next.js App Router
+-  Shopping cart with global state management using Zustand
+-  Authentication flow with NextAuth
+-  Fully responsive design for desktop, tablet, and mobile devices
+-  Fast performance powered by Next.js
+-  Reusable and scalable component architecture
+-  Optimized static assets and custom fonts
+
+---
+
+##  Tech Stack
+
+- **Next.js 16 (App Router)**
+- **React**
+- **TypeScript**
+- **Zustand**
+- **NextAuth.js**
+- **CSS**
+- **PostCSS**
+- **Netlify**
+
+---
+
+### Folder Overview
+
+- **app/** – Application routes, layouts, and API routes
+- **components/** – Reusable UI components
+- **data/** – Static product data
+- **hooks/** – Custom React hooks
+- **store/** – Zustand store for cart state
+- **types/** – TypeScript type definitions
+- **public/** – Images, fonts, and static assets
+
+---
+
+##  Main Features
+
+### Product Catalog
+- Browse all available products
+- View detailed information for each product
+- Dynamic routing with `/shop/[id]`
+
+### Shopping Cart
+- Add and remove products
+- Global cart state with Zustand
+- Smooth user experience across pages
+
+### Authentication
+- Login page powered by NextAuth
+- Ready for authentication provider integration
+
+---
+
+##  Getting Started
+
+### Clone the repository
+
+```bash
+git clone https://github.com/your-username/furnique.git
+cd furnique
+```
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser and visit:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+##  Production Build
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+##  Future Improvements
 
-## Deploy on Vercel
+-  Stripe payment integration
+-  Database integration with Prisma and MongoDB
+-  User dashboard
+-  Order history
+-  Wishlist functionality
+-  Product reviews and ratings
+-  Admin dashboard for product management
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🌐 Live Demo
+
+https://furnique-shop.netlify.app
+
+---
+
+## 👨‍💻 Author
+
+Developed by **Setareh Pishiyar** as a portfolio project to practice modern frontend development using Next.js, TypeScript, Zustand, and NextAuth.
+If you like this project, feel free to ⭐ the repository!
+---
