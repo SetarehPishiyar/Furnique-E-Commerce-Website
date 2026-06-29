@@ -1,8 +1,6 @@
 #  Furnique - E-Commerce Furniture Store
 
-A modern and fully responsive e-commerce web application built with **Next.js 14 (App Router)**, **TypeScript**, and **Zustand**. The project simulates a real-world furniture shopping experience with dynamic routing, cart management, and authentication.
-
-🌐 **Live Demo:** https://furnique-shop.netlify.app
+A modern and fully responsive e-commerce web application built with **Next.js 16 (App Router)**, **TypeScript**, and **Zustand**. The project simulates a real-world furniture shopping experience with dynamic routing, cart management, and authentication.
 
 ---
 
